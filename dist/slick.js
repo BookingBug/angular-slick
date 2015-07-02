@@ -124,6 +124,21 @@ angular.module('slick', []).directive('slick', [
                 return sl.slideHandler(currentIndex);
               }
             });
+            slider.on('reInit', function (sl) {
+              if (attrs.onReInit) {
+                return scope.onReInit();
+              }
+            });
+            slider.on('setPosition', function (sl) {
+              if (attrs.onSetPosition) {
+                return scope.onSetPosition();
+              }
+            });
+            slider.on('swipe', function (sl) {
+              if (attrs.onSwipe) {
+                return scope.onSwipe();
+              }
+            });
             slider.on('afterChange', function (event, slick, currentSlide, nextSlide) {
               if (scope.onAfterChange) {
                 scope.onAfterChange();
@@ -133,6 +148,26 @@ angular.module('slick', []).directive('slick', [
                   currentIndex = currentSlide;
                   return scope.currentIndex = currentSlide;
                 });
+              }
+            });
+            slider.on('beforeChange', function (sl) {
+              if (attrs.onBeforeChange) {
+                return scope.onBeforeChange();
+              }
+            });
+            slider.on('breakpoint', function (sl) {
+              if (attrs.onBreakpoint) {
+                return scope.onBreakpoint();
+              }
+            });
+            slider.on('destroy', function (sl) {
+              if (attrs.onDestroy) {
+                return scope.onDestroy();
+              }
+            });
+            slider.on('edge', function (sl) {
+              if (attrs.onEdge) {
+                return scope.onEdge();
               }
             });
             return scope.$watch('currentIndex', function (newVal, oldVal) {
